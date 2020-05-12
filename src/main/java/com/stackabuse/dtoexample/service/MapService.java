@@ -35,6 +35,11 @@ public class MapService {
 				.collect(Collectors.toList());
 	}
 
+	public List<UserLocationDTO> getAllUsersLocation_V2() {
+		return ((List<User>) userRepository.findAll()).stream().map(this::convertToUserLocationDTO_V2)
+				.collect(Collectors.toList());
+	}
+	
 	private UserLocationDTO convertToUserLocationDTO(User user) {
 		UserLocationDTO userLocationDTO = new UserLocationDTO();
 		userLocationDTO.setUserId(user.getId());
@@ -45,6 +50,13 @@ public class MapService {
 		userLocationDTO.setPlace(location.getPlace());
 		return userLocationDTO;
 	}
+	
+	private UserLocationDTO convertToUserLocationDTO_V2(User user) {
+		UserLocationDTO userLocationDTO = modelMapper.map(user, UserLocationDTO.class);
+		modelMapper.map(user.getLocation(), userLocationDTO);	
+		return userLocationDTO;
+	}
+	
 
 	public void addLocation(LocationDTO locationDto) {
 		Location location = new ModelMapper().map(locationDto, Location.class);

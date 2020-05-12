@@ -31,6 +31,14 @@ public class MapController {
         return usersLocation;
     }
     
+    
+    @GetMapping("/v2")
+    @ResponseBody
+    public List<UserLocationDTO> getAllUsersLocation_Mapper() {
+    	List <UserLocationDTO> usersLocation = mapService.getAllUsersLocation_V2();
+        return usersLocation;
+    }
+    
     @GetMapping(value = "/{id}")
     @ResponseBody
     public UserLocationDTO getUserLocation(@PathVariable("id") Long id) {
